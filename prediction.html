@@ -1,0 +1,187 @@
+1	<!DOCTYPE html>
+     2	<html lang="ko">
+     3	<head>
+     4	    <meta charset="UTF-8">
+     5	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     6	    <title>사기예측 - Safe전세</title>
+     7	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+     8	    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     9	    <link rel="stylesheet" href="css/style.css">
+    10	</head>
+    11	<body>
+    12	    <!-- 헤더 -->
+    13	    <header class="header">
+    14	        <div class="container">
+    15	            <div class="header-content">
+    16	                <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">
+    17	                    <i class="fas fa-shield-alt"></i>
+    18	                    <span>Safe전세</span>
+    19	                </div>
+    20	                <nav class="nav">
+    21	                    <a href="index.html">홈</a>
+    22	                    <a href="prediction.html" class="active">사기예측</a>
+    23	
+    24	                    <a href="price.html">시세조회</a>
+    25	                    <a href="agent.html">중개사검증</a>
+    26	                    <a href="documents.html">서류발급</a>
+    27	                    <a href="cases.html">사례검색</a>
+    28	                    <a href="insurance.html">보험추천</a>
+    29	                    <a href="map.html">위험지도</a>
+    30	                    <a href="news.html">뉴스</a>
+    31	                    <a href="help.html">지원센터</a>
+    32	                </nav>
+    33	                <button class="mobile-menu-btn" id="mobileMenuBtn">
+    34	                    <i class="fas fa-bars"></i>
+    35	                </button>
+    36	            </div>
+    37	        </div>
+    38	    </header>
+    39	
+    40	    <!-- 페이지 히어로 -->
+    41	    <section class="page-hero">
+    42	        <div class="container">
+    43	            <h1><i class="fas fa-chart-line"></i> 전세사기 확률 예측 분석</h1>
+    44	            <p>AI가 계약 정보를 분석하여 전세사기 위험도를 예측합니다</p>
+    45	        </div>
+    46	    </section>
+    47	
+    48	    <!-- 메인 컨텐츠 -->
+    49	    <section class="section">
+    50	        <div class="container">
+    51	            <div class="prediction-card card">
+    52	                <form id="predictionForm" class="prediction-form">
+    53	                    <div class="form-grid">
+    54	                        <div class="form-group">
+    55	                            <label for="deposit">보증금 (만원)</label>
+    56	                            <input type="number" id="deposit" required placeholder="예: 30000">
+    57	                        </div>
+    58	                        <div class="form-group">
+    59	                            <label for="monthlyRent">월세 (만원)</label>
+    60	                            <input type="number" id="monthlyRent" placeholder="월세가 없으면 0">
+    61	                        </div>
+    62	                        <div class="form-group">
+    63	                            <label for="region">지역</label>
+    64	                            <select id="region" required>
+    65	                                <option value="">선택하세요</option>
+    66	                                <option value="서울">서울특별시</option>
+    67	                                <option value="부산">부산광역시</option>
+    68	                                <option value="대구">대구광역시</option>
+    69	                                <option value="인천">인천광역시</option>
+    70	                                <option value="광주">광주광역시</option>
+    71	                                <option value="대전">대전광역시</option>
+    72	                                <option value="울산">울산광역시</option>
+    73	                                <option value="세종">세종특별자치시</option>
+    74	                                <option value="경기">경기도</option>
+    75	                                <option value="강원">강원특별자치도</option>
+    76	                                <option value="충북">충청북도</option>
+    77	                                <option value="충남">충청남도</option>
+    78	                                <option value="전북">전북특별자치도</option>
+    79	                                <option value="전남">전라남도</option>
+    80	                                <option value="경북">경상북도</option>
+    81	                                <option value="경남">경상남도</option>
+    82	                                <option value="제주">제주특별자치도</option>
+    83	                            </select>
+    84	                        </div>
+    85	                        <div class="form-group">
+    86	                            <label for="buildingAge">건물 연식 (년)</label>
+    87	                            <input type="number" id="buildingAge" required placeholder="예: 15">
+    88	                        </div>
+    89	                        <div class="form-group">
+    90	                            <label for="landlordAge">임대인 나이</label>
+    91	                            <input type="number" id="landlordAge" required placeholder="예: 45">
+    92	                        </div>
+    93	                        <div class="form-group">
+    94	                            <label for="propertyType">부동산 유형</label>
+    95	                            <select id="propertyType" required>
+    96	                                <option value="">선택하세요</option>
+    97	                                <option value="아파트">아파트</option>
+    98	                                <option value="빌라">빌라/연립</option>
+    99	                                <option value="단독주택">단독주택</option>
+   100	                                <option value="오피스텔">오피스텔</option>
+   101	                            </select>
+   102	                        </div>
+   103	                    </div>
+   104	                    
+   105	                    <div class="form-group">
+   106	                        <label>
+   107	                            <input type="checkbox" id="hasMultipleLoans">
+   108	                            임대인이 다수의 대출이 있음
+   109	                        </label>
+   110	                    </div>
+   111	                    
+   112	                    <div class="form-group">
+   113	                        <label>
+   114	                            <input type="checkbox" id="hasMultipleProperties">
+   115	                            임대인이 여러 부동산을 소유
+   116	                        </label>
+   117	                    </div>
+   118	                    
+   119	                    <button type="submit" class="btn btn-primary btn-large">
+   120	                        <i class="fas fa-calculator"></i>
+   121	                        위험도 분석하기
+   122	                    </button>
+   123	                </form>
+   124	                
+   125	                <div id="predictionResult" class="prediction-result hidden">
+   126	                    <div class="result-header">
+   127	                        <h3>분석 결과</h3>
+   128	                    </div>
+   129	                    <div class="risk-gauge">
+   130	                        <div class="gauge-container">
+   131	                            <div id="riskGauge" class="gauge"></div>
+   132	                        </div>
+   133	                        <div class="risk-level" id="riskLevel"></div>
+   134	                        <div class="risk-percentage" id="riskPercentage"></div>
+   135	                    </div>
+   136	                    <div class="risk-details" id="riskDetails"></div>
+   137	                    <div class="recommendations" id="recommendations"></div>
+   138	                </div>
+   139	            </div>
+   140	        </div>
+   141	    </section>
+   142	
+   143	    <!-- 푸터 -->
+   144	    <footer class="footer">
+   145	        <div class="container">
+   146	            <div class="footer-content">
+   147	                <div class="footer-section">
+   148	                    <h4>Safe전세</h4>
+   149	                    <p>안전한 전세의 시작, 전세사기로부터 국민을 보호합니다</p>
+   150	                </div>
+   151	                <div class="footer-section">
+   152	                    <h4>주요 서비스</h4>
+   153	                    <ul>
+   154	                        <li><a href="prediction.html">위험도 예측</a></li>
+   155	                        <li><a href="contract.html">계약서 분석</a></li>
+   156	                        <li><a href="cases.html">사례 검색</a></li>
+   157	                        <li><a href="insurance.html">보험 추천</a></li>
+   158	                    </ul>
+   159	                </div>
+   160	                <div class="footer-section">
+   161	                    <h4>지원</h4>
+   162	                    <ul>
+   163	                        <li><a href="map.html">위험 지도</a></li>
+   164	                        <li><a href="news.html">최신 뉴스</a></li>
+   165	                        <li><a href="help.html">상담 센터</a></li>
+   166	                    </ul>
+   167	                </div>
+   168	                <div class="footer-section">
+   169	                    <h4>긴급 연락처</h4>
+   170	                    <ul>
+   171	                        <li>전세사기 신고: 1899-0114</li>
+   172	                        <li>법률구조공단: 132</li>
+   173	                        <li>경찰청: 182</li>
+   174	                    </ul>
+   175	                </div>
+   176	            </div>
+   177	            <div class="footer-bottom">
+   178	                <p>&copy; 2024 Safe전세. 전세사기 예방을 위한 종합 정보 플랫폼입니다.</p>
+   179	            </div>
+   180	        </div>
+   181	    </footer>
+   182	
+   183	    <script src="js/common.js"></script>
+   184	    <script src="js/prediction.js"></script>
+   185	</body>
+   186	</html>
+   187	
