@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중개사검증 - Safe전세</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Safe전세</span>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">홈</a>
+                    <a href="prediction.html">사기예측</a>
+
+                    <a href="price.html">시세조회</a>
+                    <a href="agent.html" class="active">중개사검증</a>
+                    <a href="documents.html">서류발급</a>
+                    <a href="cases.html">사례검색</a>
+                    <a href="insurance.html">보험추천</a>
+                    <a href="map.html">위험지도</a>
+                    <a href="news.html">뉴스</a>
+                    <a href="help.html">지원센터</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 페이지 히어로 -->
+    <section class="page-hero">
+        <div class="container">
+            <h1><i class="fas fa-user-check"></i> 공인중개사 검증</h1>
+            <p>중개사 자격을 확인하고 리뷰를 조회하여 안전한 거래를 하세요</p>
+        </div>
+    </section>
+
+    <!-- 메인 컨텐츠 -->
+    <section class="section">
+        <div class="container">
+            
+            <!-- 중개사 검색 폼 -->
+            <div class="card">
+                <h2><i class="fas fa-search"></i> 중개사무소 검색</h2>
+                <form id="agentSearchForm">
+                    <div class="form-group">
+                        <label for="agentName">
+                            <i class="fas fa-user"></i> 중개사 이름 또는 사무소명
+                        </label>
+                        <input type="text" id="agentName" placeholder="예: 김부동산, 강남공인중개사무소" required>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="agentRegion">
+                                <i class="fas fa-map-marker-alt"></i> 지역
+                            </label>
+                            <select id="agentRegion" required>
+                                <option value="">선택하세요</option>
+                                <option value="서울">서울특별시</option>
+                                <option value="경기">경기도</option>
+                                <option value="인천">인천광역시</option>
+                                <option value="부산">부산광역시</option>
+                                <option value="대구">대구광역시</option>
+                                <option value="광주">광주광역시</option>
+                                <option value="대전">대전광역시</option>
+                                <option value="기타">기타 지역</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registrationNumber">
+                                <i class="fas fa-id-card"></i> 등록번호 (선택)
+                            </label>
+                            <input type="text" id="registrationNumber" placeholder="예: 11200-2023-00001">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-search"></i> 중개사 검증하기
+                    </button>
+                </form>
+            </div>
+
+            <!-- 로딩 표시 -->
+            <div class="analysis-loading" id="agentLoading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>중개사 정보를 조회하고 있습니다...</p>
+                <small>잠시만 기다려주세요</small>
+            </div>
+
+            <!-- 검증 결과 -->
+            <div id="agentResult" style="display: none;">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+
+            <!-- 지도 및 리뷰 링크 안내 -->
+            <div class="card">
+                <h3><i class="fas fa-map"></i> 사무소 위치 및 리뷰 확인</h3>
+                <p style="margin-bottom: 1.5rem; color: var(--gray-color);">
+                    카카오맵과 네이버 지도에서 중개사무소의 위치와 실제 이용자 리뷰를 확인하세요.
+                </p>
+                
+                <div class="map-search-section">
+                    <div class="search-input-wrapper">
+                        <input type="text" id="mapSearchKeyword" placeholder="중개사무소 이름 + 지역을 입력하세요 (예: 강남공인중개사 역삼동)">
+                    </div>
+                    
+                    <div class="map-link-grid">
+                        <a href="#" id="kakaoMapLink" class="map-link" target="_blank">
+                            <div class="map-icon" style="background: linear-gradient(135deg, #FEE500, #FFCD00);">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <div class="map-info">
+                                <h4>카카오맵</h4>
+                                <p>위치 확인 및 리뷰 보기</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+
+                        <a href="#" id="naverMapLink" class="map-link" target="_blank">
+                            <div class="map-icon" style="background: linear-gradient(135deg, #03C75A, #00B851);">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="map-info">
+                                <h4>네이버 지도</h4>
+                                <p>위치 확인 및 리뷰 보기</p>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="map-guide">
+                        <h5><i class="fas fa-info-circle"></i> 리뷰 확인 시 주의사항</h5>
+                        <ul>
+                            <li><i class="fas fa-check"></i> 최근 6개월 이내 리뷰를 중점적으로 확인하세요</li>
+                            <li><i class="fas fa-check"></i> 별점보다 상세한 내용이 있는 리뷰를 참고하세요</li>
+                            <li><i class="fas fa-check"></i> 부정적 리뷰의 패턴(서비스, 신뢰성 등)을 체크하세요</li>
+                            <li><i class="fas fa-check"></i> 응답률과 사장님 답글도 중요한 판단 기준입니다</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 정부 공식 확인 사이트 -->
+            <div class="card">
+                <h3><i class="fas fa-link"></i> 공인중개사 공식 확인 사이트</h3>
+                <p style="margin-bottom: 1.5rem; color: var(--gray-color);">
+                    정부 공식 사이트에서 중개사 등록 여부와 자격을 확인하세요.
+                </p>
+                
+                <div class="link-grid">
+                    <a href="https://www.gov.kr" target="_blank" class="gov-link">
+                        <i class="fas fa-landmark"></i>
+                        <span>정부24</span>
+                    </a>
+                    <a href="https://www.realtyprice.kr" target="_blank" class="gov-link">
+                        <i class="fas fa-certificate"></i>
+                        <span>공인중개사 확인</span>
+                    </a>
+                    <a href="https://www.molit.go.kr" target="_blank" class="gov-link">
+                        <i class="fas fa-building"></i>
+                        <span>국토교통부</span>
+                    </a>
+                    <a href="https://www.easylaw.go.kr" target="_blank" class="gov-link">
+                        <i class="fas fa-balance-scale"></i>
+                        <span>찾기쉬운 생활법령</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 필수 확인사항 -->
+            <div class="card" style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-left: 5px solid var(--primary-color);">
+                <h3><i class="fas fa-clipboard-check"></i> 중개사무소 필수 확인사항</h3>
+                <div class="checklist-simple">
+                    <div class="check-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>중개사무소 등록증 확인</strong>
+                            <p>사무소 벽면에 등록증이 게시되어 있는지 확인하세요. 등록번호, 대표자명, 소재지를 확인합니다.</p>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>공인중개사 자격증 확인</strong>
+                            <p>공인중개사 자격증 원본을 요청하여 확인하세요. 이름, 생년월일, 자격증 번호를 확인합니다.</p>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>신분증 대조</strong>
+                            <p>중개사의 신분증을 자격증과 대조하여 본인이 맞는지 확인하세요.</p>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>손해배상책임 보증 가입 확인</strong>
+                            <p>중개사고 발생 시 피해 보상을 위한 보증 가입 증서를 확인하세요.</p>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>중개보수 요율표 게시</strong>
+                            <p>법정 중개보수 요율표가 게시되어 있는지 확인하세요.</p>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>온라인 리뷰 확인</strong>
+                            <p>카카오맵, 네이버 지도에서 실제 이용자들의 리뷰를 확인하세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 주의사항 -->
+            <div class="card" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-left: 5px solid var(--warning-color);">
+                <h3><i class="fas fa-exclamation-triangle"></i> 이런 중개사는 피하세요!</h3>
+                <div class="warning-list">
+                    <div class="warning-item">
+                        <i class="fas fa-times-circle"></i>
+                        <p><strong>등록증이나 자격증을 보여주지 않는 경우</strong> - 무자격자일 가능성이 있습니다.</p>
+                    </div>
+                    <div class="warning-item">
+                        <i class="fas fa-times-circle"></i>
+                        <p><strong>계약금을 자신의 계좌로 받으려는 경우</strong> - 반드시 임대인 계좌로 직접 입금해야 합니다.</p>
+                    </div>
+                    <div class="warning-item">
+                        <i class="fas fa-times-circle"></i>
+                        <p><strong>등기부등본 확인을 꺼리는 경우</strong> - 문제가 있는 매물일 가능성이 높습니다.</p>
+                    </div>
+                    <div class="warning-item">
+                        <i class="fas fa-times-circle"></i>
+                        <p><strong>급하게 계약을 종용하는 경우</strong> - 충분한 검토 시간을 가지세요.</p>
+                    </div>
+                    <div class="warning-item">
+                        <i class="fas fa-times-circle"></i>
+                        <p><strong>리뷰가 전혀 없거나 부정적 리뷰가 많은 경우</strong> - 다른 중개사를 찾아보세요.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Safe전세</h4>
+                    <p>안전한 전세의 시작, 전세사기로부터 국민을 보호합니다</p>
+                </div>
+                <div class="footer-section">
+                    <h4>주요 서비스</h4>
+                    <ul>
+                        <li><a href="prediction.html">위험도 예측</a></li>
+                        <li><a href="contract.html">계약서 분석</a></li>
+                        <li><a href="price.html">시세 조회</a></li>
+                        <li><a href="agent.html">중개사 검증</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>정보</h4>
+                    <ul>
+                        <li><a href="cases.html">사례 검색</a></li>
+                        <li><a href="insurance.html">보험 추천</a></li>
+                        <li><a href="map.html">위험 지도</a></li>
+                        <li><a href="news.html">최신 뉴스</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>긴급 연락처</h4>
+                    <ul>
+                        <li>전세사기 신고: 1899-0114</li>
+                        <li>법률구조공단: 132</li>
+                        <li>경찰청: 182</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Safe전세. 전세사기 예방을 위한 종합 정보 플랫폼입니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/agent.js"></script>
+</body>
+</html>
