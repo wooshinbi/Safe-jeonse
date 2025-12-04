@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>위험지도 - Safe전세</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/risk-map-mini.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Safe전세</span>
+                </div>
+                <nav class="nav">
+                    <a href="prediction.html">사기예측</a>
+
+                    <a href="documents.html">서류발급</a>
+                    <a href="cases.html">사례검색</a>
+                    <a href="insurance.html">보험추천</a>
+                    <a href="map.html" class="active">위험지도</a>
+                    <a href="news.html">전체뉴스</a>
+                    <a href="help.html">지원센터</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header" style="padding: 2rem 0;">
+        <div class="container">
+            <h1><i class="fas fa-map-marked-alt"></i> 전국 위험지역 지도</h1>
+            <p>실시간으로 업데이트되는 전세사기 위험지역을 확인하세요</p>
+        </div>
+    </section>
+
+    <!-- 전체 지도 섹션 -->
+    <section class="section" style="padding-top: 1rem;">
+        <div class="container" style="max-width: 100%;">
+            <!-- 검색 바 -->
+            <div class="map-search-container" style="max-width: 1200px; margin: 0 auto 2rem;">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="mapSearchFull" placeholder="지역명 또는 주소를 입력하세요 (예: 서울 강남구, 인천 남동구)">
+                    <button id="searchBtnFull" class="search-btn">검색</button>
+                </div>
+            </div>
+            
+            <!-- 위험도 정보 표시 영역 -->
+            <div class="risk-info-panel" id="riskInfoPanelFull" style="display: none; max-width: 1200px; margin: 0 auto 1.5rem;">
+                <div class="risk-info-content">
+                    <div class="risk-info-header">
+                        <h3 id="selectedRegionFull">-</h3>
+                        <button class="close-info-btn" id="closeInfoBtnFull">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="risk-info-body">
+                        <div class="risk-score-display">
+                            <div class="risk-score" id="riskScoreFull">-</div>
+                            <div class="risk-level" id="riskLevelFull">-</div>
+                        </div>
+                        <div class="risk-details">
+                            <div class="risk-detail-item">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>최근 1년 신고: <strong id="recentCasesFull">-</strong>건</span>
+                            </div>
+                            <div class="risk-detail-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>위험도 추세: <strong id="riskTrendFull">-</strong></span>
+                            </div>
+                            <div class="risk-detail-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>주의사항: <strong id="cautionFull">-</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 지도 영역 (전체 화면) -->
+            <div class="map-container-full">
+                <div id="fullMap" class="full-map"></div>
+                
+                <!-- 범례 -->
+                <div class="map-legend">
+                    <div class="legend-title">위험도</div>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #22c55e;"></span>
+                            <span>안전 (0-25)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #eab308;"></span>
+                            <span>주의 (26-50)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #f97316;"></span>
+                            <span>위험 (51-75)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #ef4444;"></span>
+                            <span>고위험 (76-100)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 지역별 통계 -->
+    <section class="section" style="background: #f8fafc;">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-bar"></i> 지역별 위험도 통계</h2>
+            </div>
+            
+            <div class="stats-table-container">
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>순위</th>
+                            <th>지역</th>
+                            <th>위험지수</th>
+                            <th>신고건수</th>
+                            <th>추세</th>
+                            <th>위험도</th>
+                        </tr>
+                    </thead>
+                    <tbody id="statsTableBody">
+                        <!-- JavaScript로 동적 생성 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Safe전세</h4>
+                    <p>안전한 전세의 시작, 전세사기로부터 국민을 보호합니다</p>
+                </div>
+                <div class="footer-section">
+                    <h4>주요 서비스</h4>
+                    <ul>
+                        <li><a href="prediction.html">위험도 예측</a></li>
+                        <li><a href="contract.html">계약서 분석</a></li>
+                        <li><a href="cases.html">사례 검색</a></li>
+                        <li><a href="insurance.html">보험 추천</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>지원</h4>
+                    <ul>
+                        <li><a href="map.html">위험 지도</a></li>
+                        <li><a href="news.html">최신 뉴스</a></li>
+                        <li><a href="help.html">상담 센터</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>긴급 연락처</h4>
+                    <ul>
+                        <li>전세사기 신고: 1899-0114</li>
+                        <li>법률구조공단: 132</li>
+                        <li>경찰청: 182</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Safe전세. 전세사기 예방을 위한 종합 정보 플랫폼입니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/risk-map-data.js"></script>
+    <script src="js/map-full.js"></script>
+</body>
+</html>
