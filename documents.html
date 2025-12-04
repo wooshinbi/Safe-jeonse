@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서류발급 - Safe전세</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Safe전세</span>
+                </div>
+                <nav class="nav">
+                    <a href="prediction.html">사기예측</a>
+
+                    <a href="documents.html" class="active">서류발급</a>
+                    <a href="cases.html">사례검색</a>
+                    <a href="insurance.html">보험추천</a>
+                    <a href="map.html">위험지도</a>
+                    <a href="news.html">전체뉴스</a>
+                    <a href="help.html">지원센터</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-file-invoice"></i> 전세 계약 필수 서류 발급</h1>
+            <p>안전한 전세 계약을 위해 필요한 서류를 한눈에 확인하고 발급받으세요</p>
+        </div>
+    </section>
+
+    <!-- 진행 현황 -->
+    <section class="section" style="padding-top: 2rem; padding-bottom: 1rem;">
+        <div class="container">
+            <div class="progress-tracker">
+                <div class="progress-header">
+                    <h3><i class="fas fa-tasks"></i> 서류 발급 진행 현황</h3>
+                    <div class="progress-stats">
+                        <span id="completedCount">0</span> / <span id="totalCount">10</span> 완료
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 필수 서류 목록 -->
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-clipboard-list"></i> 필수 서류 체크리스트</h2>
+                <p>각 서류를 클릭하여 상세 정보를 확인하고 발급 사이트로 이동하세요</p>
+            </div>
+            
+            <div class="documents-grid" id="documentsGrid">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 서류 발급 가이드 -->
+    <section class="section" style="background: #f8fafc;">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-lightbulb"></i> 서류 발급 가이드</h2>
+            </div>
+            
+            <div class="guide-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>계약 전 필수 확인</h3>
+                        <p>등기부등본, 건축물대장을 통해 임대인 소유권, 위반 건축물, 근저당 등을 확인하세요.</p>
+                        <div class="timeline-docs">
+                            <span class="doc-tag">등기부등본</span>
+                            <span class="doc-tag">건축물대장</span>
+                            <span class="doc-tag">토지대장</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>임대인 신원 확인</h3>
+                        <p>임대인 신분증 확인, 대리인 계약 시 인감증명서 및 위임장을 반드시 확인하세요.</p>
+                        <div class="timeline-docs">
+                            <span class="doc-tag">신분증 사본</span>
+                            <span class="doc-tag">인감증명서</span>
+                            <span class="doc-tag">위임장</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>세금 체납 확인</h3>
+                        <p>재산세, 종합부동산세, 국세 체납 여부를 확인하여 향후 압류 위험을 방지하세요.</p>
+                        <div class="timeline-docs">
+                            <span class="doc-tag">지방세 납세증명서</span>
+                            <span class="doc-tag">국세 납세증명서</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h3>계약 체결 및 신고</h3>
+                        <p>계약서 작성 후 전입신고와 확정일자를 즉시 받아 우선변제권을 확보하세요.</p>
+                        <div class="timeline-docs">
+                            <span class="doc-tag">임대차계약서</span>
+                            <span class="doc-tag">전입신고</span>
+                            <span class="doc-tag">확정일자</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 주의사항 -->
+    <section class="section">
+        <div class="container">
+            <div class="warning-box">
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="warning-content">
+                    <h3>서류 확인 시 주의사항</h3>
+                    <ul class="warning-list">
+                        <li>등기부등본은 계약 당일에 발급받아 최신 정보를 확인하세요</li>
+                        <li>인감증명서는 정부24에서 진위 여부를 반드시 확인하세요</li>
+                        <li>건축물대장에서 위반 건축물 여부를 확인하세요</li>
+                        <li>세금 체납이 있으면 조세채권이 임차권보다 우선합니다</li>
+                        <li>전입신고와 확정일자는 계약 당일에 처리하세요</li>
+                        <li>모든 서류는 사본을 보관하고 사진으로도 남겨두세요</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 자주 묻는 질문 -->
+    <section class="section" style="background: #f8fafc;">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-question-circle"></i> 서류 관련 FAQ</h2>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>등기부등본에서 꼭 확인해야 할 항목은?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>1. <strong>소유권</strong>: 임대인이 실제 소유주인지 확인<br>
+                           2. <strong>근저당</strong>: 대출액이 보증금보다 많은지 확인 (깡통전세 위험)<br>
+                           3. <strong>가압류/가처분</strong>: 법적 분쟁 중인지 확인<br>
+                           4. <strong>경매 개시 결정</strong>: 경매 진행 중인지 확인<br>
+                           5. <strong>신탁</strong>: 신탁부동산인지 확인</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>서류 발급 비용은 얼마나 드나요?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>• 등기부등본: 1,000원 (인터넷 발급 700원)<br>
+                           • 건축물대장: 500원<br>
+                           • 토지대장: 500원<br>
+                           • 인감증명서: 600원<br>
+                           • 납세증명서: 무료<br>
+                           • 전입신고: 무료<br>
+                           • 확정일자: 무료<br>
+                           <strong>총 약 3,000원 내외</strong>로 모든 필수 서류를 발급받을 수 있습니다.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>온라인으로 발급받을 수 있나요?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>대부분의 서류는 온라인으로 발급 가능합니다:<br>
+                           • <strong>등기부등본</strong>: 인터넷등기소 (www.iros.go.kr)<br>
+                           • <strong>건축물대장/토지대장</strong>: 정부24 (www.gov.kr)<br>
+                           • <strong>납세증명서</strong>: 위택스, 홈택스<br>
+                           • <strong>인감증명서</strong>: 정부24 (공동인증서 필요)<br>
+                           • <strong>전입신고</strong>: 정부24 또는 주민센터 방문<br>
+                           • <strong>확정일자</strong>: 주민센터 방문 필수</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>전입신고와 확정일자는 언제 받아야 하나요?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>계약 당일 또는 다음날 즉시</strong> 처리해야 합니다!<br><br>
+                           전입신고와 확정일자를 받아야 대항력과 우선변제권이 발생합니다. 
+                           늦어질수록 다른 채권자에게 우선순위를 빼앗길 위험이 있으므로, 
+                           계약 후 즉시 주민센터를 방문하여 처리하세요.<br><br>
+                           <strong>순서</strong>: 1) 전입신고 → 2) 확정일자 → 3) 전세보증보험 가입</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Safe전세</h4>
+                    <p>안전한 전세의 시작, 전세사기로부터 국민을 보호합니다</p>
+                </div>
+                <div class="footer-section">
+                    <h4>주요 서비스</h4>
+                    <ul>
+                        <li><a href="prediction.html">위험도 예측</a></li>
+                        <li><a href="contract.html">계약서 분석</a></li>
+                        <li><a href="documents.html">서류 발급</a></li>
+                        <li><a href="cases.html">사례 검색</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>지원</h4>
+                    <ul>
+                        <li><a href="map.html">위험 지도</a></li>
+                        <li><a href="news.html">최신 뉴스</a></li>
+                        <li><a href="help.html">상담 센터</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>긴급 연락처</h4>
+                    <ul>
+                        <li>전세사기 신고: 1899-0114</li>
+                        <li>법률구조공단: 132</li>
+                        <li>경찰청: 182</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Safe전세. 전세사기 예방을 위한 종합 정보 플랫폼입니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/documents.js"></script>
+</body>
+</html>
