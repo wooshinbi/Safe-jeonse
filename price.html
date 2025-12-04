@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시세조회 - Safe전세</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Safe전세</span>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">홈</a>
+                    <a href="prediction.html">사기예측</a>
+
+                    <a href="price.html" class="active">시세조회</a>
+                    <a href="agent.html">중개사검증</a>
+                    <a href="documents.html">서류발급</a>
+                    <a href="cases.html">사례검색</a>
+                    <a href="insurance.html">보험추천</a>
+                    <a href="map.html">위험지도</a>
+                    <a href="news.html">뉴스</a>
+                    <a href="help.html">지원센터</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 페이지 히어로 -->
+    <section class="page-hero">
+        <div class="container">
+            <h1><i class="fas fa-chart-line"></i> 전월세 시세 조회</h1>
+            <p>실시간 시세를 확인하고 깡통전세를 예방하세요</p>
+        </div>
+    </section>
+
+    <!-- 메인 컨텐츠 -->
+    <section class="section">
+        <div class="container">
+            
+            <!-- 시세 조회 폼 -->
+            <div class="card">
+                <h2><i class="fas fa-search"></i> 시세 검색</h2>
+                <form id="priceSearchForm">
+                    <div class="form-group">
+                        <label for="address">
+                            <i class="fas fa-map-marker-alt"></i> 주소 검색
+                        </label>
+                        <input type="text" id="address" placeholder="예: 서울특별시 강남구 역삼동" required>
+                        <small>도로명주소 또는 지번주소를 입력하세요</small>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="propertyType">
+                                <i class="fas fa-building"></i> 부동산 유형
+                            </label>
+                            <select id="propertyType" required>
+                                <option value="">선택하세요</option>
+                                <option value="아파트">아파트</option>
+                                <option value="빌라/연립">빌라/연립</option>
+                                <option value="오피스텔">오피스텔</option>
+                                <option value="단독/다가구">단독/다가구</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="area">
+                                <i class="fas fa-ruler-combined"></i> 전용면적 (평)
+                            </label>
+                            <input type="number" id="area" placeholder="예: 25" min="1">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-search"></i> 시세 조회하기
+                    </button>
+                </form>
+            </div>
+
+            <!-- 로딩 표시 -->
+            <div class="analysis-loading" id="priceLoading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>시세 정보를 조회하고 있습니다...</p>
+                <small>잠시만 기다려주세요</small>
+            </div>
+
+            <!-- 시세 조회 결과 -->
+            <div id="priceResult" style="display: none;">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+
+            <!-- 정부 온라인 서비스 안내 -->
+            <div class="card">
+                <h3><i class="fas fa-link"></i> 실거래가 확인 사이트</h3>
+                <p style="margin-bottom: 1.5rem; color: var(--gray-color);">
+                    정부 공식 사이트에서 실제 거래된 시세를 확인하세요. 허위 매물을 걸러내고 안전한 거래를 하실 수 있습니다.
+                </p>
+                
+                <div class="link-grid">
+                    <a href="https://www.gov.kr" target="_blank" class="gov-link">
+                        <i class="fas fa-landmark"></i>
+                        <span>정부24</span>
+                    </a>
+                    <a href="https://rt.molit.go.kr" target="_blank" class="gov-link">
+                        <i class="fas fa-home"></i>
+                        <span>실거래가 공개시스템</span>
+                    </a>
+                    <a href="https://www.reb.or.kr" target="_blank" class="gov-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>부동산정보통합포털</span>
+                    </a>
+                    <a href="https://www.r114.com" target="_blank" class="gov-link">
+                        <i class="fas fa-building"></i>
+                        <span>부동산114</span>
+                    </a>
+                    <a href="https://land.naver.com" target="_blank" class="gov-link">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>네이버 부동산</span>
+                    </a>
+                    <a href="https://realty.daum.net" target="_blank" class="gov-link">
+                        <i class="fas fa-search-location"></i>
+                        <span>다음 부동산</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 깡통전세 예방 가이드 -->
+            <div class="card" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-left: 5px solid var(--warning-color);">
+                <h3><i class="fas fa-exclamation-triangle"></i> 깡통전세 예방 체크포인트</h3>
+                <div class="checklist-simple">
+                    <div class="check-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>전세가율 80% 이하 확인</strong>
+                            <p>매매가 대비 전세가 비율이 80%를 초과하면 위험합니다.</p>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>최근 6개월 실거래가 확인</strong>
+                            <p>실거래가 공개시스템에서 최근 거래 내역을 확인하세요.</p>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>주변 시세와 비교</strong>
+                            <p>같은 지역, 같은 평형대 매물과 비교하여 이상하게 높지 않은지 확인하세요.</p>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>등기부등본 근저당 확인</strong>
+                            <p>매매가 - 근저당 금액 > 전세보증금 인지 반드시 확인하세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Safe전세</h4>
+                    <p>안전한 전세의 시작, 전세사기로부터 국민을 보호합니다</p>
+                </div>
+                <div class="footer-section">
+                    <h4>주요 서비스</h4>
+                    <ul>
+                        <li><a href="prediction.html">위험도 예측</a></li>
+                        <li><a href="contract.html">계약서 분석</a></li>
+                        <li><a href="price.html">시세 조회</a></li>
+                        <li><a href="agent.html">중개사 검증</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>정보</h4>
+                    <ul>
+                        <li><a href="cases.html">사례 검색</a></li>
+                        <li><a href="insurance.html">보험 추천</a></li>
+                        <li><a href="map.html">위험 지도</a></li>
+                        <li><a href="news.html">최신 뉴스</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>긁 연락처</h4>
+                    <ul>
+                        <li>전세사기 신고: 1899-0114</li>
+                        <li>법률구조공단: 132</li>
+                        <li>경찰청: 182</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Safe전세. 전세사기 예방을 위한 종합 정보 플랫폼입니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/price.js"></script>
+</body>
+</html>
