@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스 - Safe전세</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/news-style.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Safe전세</span>
+                </div>
+                <nav class="nav">
+                    <a href="prediction.html">사기예측</a>
+
+                    <a href="documents.html">서류발급</a>
+                    <a href="cases.html">사례검색</a>
+                    <a href="insurance.html">보험추천</a>
+                    <a href="map.html">위험지도</a>
+                    <a href="news.html" class="active">전체뉴스</a>
+                    <a href="help.html">지원센터</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-newspaper"></i> 전세사기 전체 뉴스</h1>
+            <p>최신 전세사기 관련 뉴스를 실시간으로 확인하세요</p>
+        </div>
+    </section>
+
+    <!-- 필터 섹션 -->
+    <section class="section" style="padding-top: 2rem; padding-bottom: 1rem;">
+        <div class="container">
+            <div class="news-filter">
+                <button class="filter-btn active" data-keyword="all">전체</button>
+                <button class="filter-btn" data-keyword="전세사기">전세사기</button>
+                <button class="filter-btn" data-keyword="깡통전세">깡통전세</button>
+                <button class="filter-btn" data-keyword="부동산사기">부동산사기</button>
+                <button class="filter-btn" data-keyword="계약서위조">계약서위조</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 뉴스 리스트 -->
+    <section class="section" style="padding-top: 1rem;">
+        <div class="container">
+            <!-- 로딩 상태 -->
+            <div id="newsLoadingFull" class="news-loading">
+                <div class="spinner"></div>
+                <p>최신 뉴스를 불러오는 중...</p>
+            </div>
+
+            <!-- 뉴스 목록 -->
+            <div id="newsListContainer" style="display: none;">
+                <div class="news-count">
+                    <span id="newsCount">전체 <strong>12</strong>개의 뉴스</span>
+                </div>
+                
+                <div id="newsListFull" class="news-list-full">
+                    <!-- JavaScript로 동적 생성 -->
+                </div>
+                
+                <div id="noNewsFull" class="no-results" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <p>선택하신 카테고리의 뉴스가 없습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Safe전세</h4>
+                    <p>안전한 전세의 시작, 전세사기로부터 국민을 보호합니다</p>
+                </div>
+                <div class="footer-section">
+                    <h4>주요 서비스</h4>
+                    <ul>
+                        <li><a href="prediction.html">위험도 예측</a></li>
+                        <li><a href="contract.html">계약서 분석</a></li>
+                        <li><a href="cases.html">사례 검색</a></li>
+                        <li><a href="insurance.html">보험 추천</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>지원</h4>
+                    <ul>
+                        <li><a href="map.html">위험 지도</a></li>
+                        <li><a href="news.html">최신 뉴스</a></li>
+                        <li><a href="help.html">상담 센터</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>긴급 연락처</h4>
+                    <ul>
+                        <li>전세사기 신고: 1899-0114</li>
+                        <li>법률구조공단: 132</li>
+                        <li>경찰청: 182</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Safe전세. 전세사기 예방을 위한 종합 정보 플랫폼입니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/news-crawler.js"></script>
+    <script src="js/news-full.js"></script>
+</body>
+</html>
