@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보험추천 - Safe전세</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="location.href='index.html'" style="cursor: pointer;">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Safe전세</span>
+                </div>
+                <nav class="nav">
+                    <a href="prediction.html">사기예측</a>
+
+                    <a href="documents.html">서류발급</a>
+                    <a href="cases.html">사례검색</a>
+                    <a href="insurance.html" class="active">보험추천</a>
+                    <a href="map.html">위험지도</a>
+                    <a href="news.html">전체뉴스</a>
+                    <a href="help.html">지원센터</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 페이지 헤더 -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-shield-virus"></i> 전세보증보험 추천</h1>
+            <p>내 조건에 맞는 전세보증보험을 찾아 안전한 전세 계약을 하세요</p>
+        </div>
+    </section>
+
+    <!-- 보험 추천 폼 -->
+    <section class="section">
+        <div class="container">
+            <div class="insurance-form-container">
+                <h2><i class="fas fa-user-check"></i> 보험 추천 받기</h2>
+                <p class="form-description">아래 정보를 입력하시면 최적의 전세보증보험을 추천해드립니다</p>
+                
+                <form id="insuranceForm" class="insurance-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="region"><i class="fas fa-map-marker-alt"></i> 지역</label>
+                            <select id="region" required>
+                                <option value="">선택하세요</option>
+                                <option value="서울">서울</option>
+                                <option value="경기">경기</option>
+                                <option value="인천">인천</option>
+                                <option value="부산">부산</option>
+                                <option value="대구">대구</option>
+                                <option value="광주">광주</option>
+                                <option value="대전">대전</option>
+                                <option value="울산">울산</option>
+                                <option value="세종">세종</option>
+                                <option value="기타">기타 지역</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="age"><i class="fas fa-birthday-cake"></i> 나이</label>
+                            <input type="number" id="age" placeholder="예: 35" min="19" max="100" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="deposit"><i class="fas fa-won-sign"></i> 보증금 (만원)</label>
+                            <input type="number" id="deposit" placeholder="예: 30000" min="1000" step="1000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="monthlyRent"><i class="fas fa-coins"></i> 월세 (만원)</label>
+                            <input type="number" id="monthlyRent" placeholder="예: 0 (전세인 경우)" min="0" step="10">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="income"><i class="fas fa-chart-line"></i> 월 소득 (만원)</label>
+                            <input type="number" id="income" placeholder="예: 300" min="0" step="10">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="propertyType"><i class="fas fa-building"></i> 주택 유형</label>
+                            <select id="propertyType" required>
+                                <option value="">선택하세요</option>
+                                <option value="아파트">아파트</option>
+                                <option value="빌라">빌라/다세대</option>
+                                <option value="오피스텔">오피스텔</option>
+                                <option value="다가구">다가구</option>
+                                <option value="단독주택">단독주택</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-search"></i> 보험 추천 받기
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 추천 결과 -->
+    <section class="section" id="resultSection" style="display: none; background: #f8fafc;">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-lightbulb"></i> 추천 보험 상품</h2>
+                <p>고객님의 조건에 맞는 전세보증보험을 추천해드립니다</p>
+            </div>
+            
+            <div id="insuranceResults" class="insurance-grid">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 보험 가이드 -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-book"></i> 전세보증보험 가이드</h2>
+            </div>
+            
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <div class="guide-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>전세보증보험이란?</h3>
+                    <p>임대인이 보증금을 돌려주지 못할 경우 보증기관이 대신 지급해주는 보험입니다. HUG(주택도시보증공사)와 SGI(서울보증보험)에서 제공합니다.</p>
+                </div>
+                
+                <div class="guide-card">
+                    <div class="guide-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>가입 필수 사항</h3>
+                    <ul class="guide-list">
+                        <li>전입신고 완료</li>
+                        <li>확정일자 받기</li>
+                        <li>임대차 계약서 작성</li>
+                        <li>등기부등본 확인</li>
+                    </ul>
+                </div>
+                
+                <div class="guide-card">
+                    <div class="guide-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>보험료 계산 방식</h3>
+                    <p>보증금액, 보증기간, 주택 유형, 지역 등에 따라 차등 적용됩니다. 일반적으로 보증금의 0.128%~0.214% 수준입니다.</p>
+                </div>
+                
+                <div class="guide-card">
+                    <div class="guide-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>문의 및 신청</h3>
+                    <ul class="guide-list">
+                        <li>HUG 전화: 1566-9009</li>
+                        <li>SGI 전화: 1588-2486</li>
+                        <li>KB국민은행: 전세보증보험 대리점</li>
+                        <li>온라인 신청 가능</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 보험사 링크 -->
+    <section class="section" style="background: #f8fafc;">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-external-link-alt"></i> 보험사 바로가기</h2>
+            </div>
+            
+            <div class="insurance-links-grid">
+                <a href="https://www.khug.or.kr" target="_blank" class="insurance-link-card">
+                    <div class="insurance-logo">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>HUG 주택도시보증공사</h3>
+                    <p>전세보증보험, 보증금반환보증, 안심전세 앱</p>
+                    <span class="link-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                
+                <a href="https://www.sgic.co.kr" target="_blank" class="insurance-link-card">
+                    <div class="insurance-logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>SGI 서울보증보험</h3>
+                    <p>전세금보증보험, 임대보증금보증</p>
+                    <span class="link-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                
+                <a href="https://oland.kbstar.com" target="_blank" class="insurance-link-card">
+                    <div class="insurance-logo">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>KB국민은행</h3>
+                    <p>전세보증보험 대리점, 온라인 신청</p>
+                    <span class="link-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Safe전세</h4>
+                    <p>안전한 전세의 시작, 전세사기로부터 국민을 보호합니다</p>
+                </div>
+                <div class="footer-section">
+                    <h4>주요 서비스</h4>
+                    <ul>
+                        <li><a href="prediction.html">위험도 예측</a></li>
+                        <li><a href="contract.html">계약서 분석</a></li>
+                        <li><a href="cases.html">사례 검색</a></li>
+                        <li><a href="insurance.html">보험 추천</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>지원</h4>
+                    <ul>
+                        <li><a href="map.html">위험 지도</a></li>
+                        <li><a href="news.html">최신 뉴스</a></li>
+                        <li><a href="help.html">상담 센터</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>긴급 연락처</h4>
+                    <ul>
+                        <li>전세사기 신고: 1899-0114</li>
+                        <li>법률구조공단: 132</li>
+                        <li>경찰청: 182</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Safe전세. 전세사기 예방을 위한 종합 정보 플랫폼입니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/insurance.js"></script>
+</body>
+</html>
